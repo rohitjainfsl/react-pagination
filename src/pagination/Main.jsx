@@ -24,14 +24,14 @@ function Main() {
 
   function outOfBounds(index) {
     if (
-      index < pageNumber - 1 * perPage-1 ||
-      index >= pageNumber * perPage-1 
+      index < (pageNumber - 1) * perPage ||
+      index >= pageNumber * perPage 
     ) {
       return true;
       } else {
         return false;
     }
-
+    
   }
 
   return (

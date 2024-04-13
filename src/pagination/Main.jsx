@@ -3,7 +3,7 @@ import axios from "axios";
 import "./main.css";
 
 function Main() {
-  const [posts, setPosts] = useState([]);
+  const [posts,setPosts]=useState([])
   const [pageNumber, setPageNumber] = useState(1);
   const [perPage, setPerPage] = useState(10);
   const [totalPages, setTotalPages] = useState(0);
@@ -23,6 +23,7 @@ function Main() {
   }, [posts]);
 
   function outOfBounds(index) {
+
     if (
       index < (pageNumber - 1) * perPage ||
       index >= pageNumber * perPage 
@@ -32,10 +33,16 @@ function Main() {
         return false;
     }
     
+
+    console.log(pageNumber);
+    
+      return index < (pageNumber-1)*perPage || index>=pageNumber*perPage ;
+
   }
 
   return (
     <>
+
       <div className="bg-gradient-to-r from-purple-200 via-pink-200 to-cyan-100 py-5">
         <div className="text-center bg-gradient-to-br from-red-300 to-orange-500 w-[12rem] sm:w-[15rem] text-slate-900 rounded-md m-auto">
           <h1 className="font-bold sm:text-3xl text-2xl  py-3">Pagination</h1>
@@ -78,6 +85,30 @@ function Main() {
             ""
           )}
         </div>
+
+      <h2>Pagination</h2>
+      <div className="posts">
+        {posts.map((post, index) => {
+          if (outOfBounds(index)) return
+          return (
+            <div className="post" key={index}>
+              <h3>{post.title}</h3>
+              <p>{post.body}</p>
+            </div>
+          );
+        })}
+      </div>
+      <div className="pagination">
+        {pageNumber > 1 &&(
+          <button onClick={() => setPageNumber(pageNumber - 1)}>
+            Previous
+          </button>
+        )}
+        {pageNumber <= totalPages &&(
+          <button onClick={() => setPageNumber(pageNumber + 1)}>Next</button>
+  
+        )}
+
       </div>
     </>
   );
